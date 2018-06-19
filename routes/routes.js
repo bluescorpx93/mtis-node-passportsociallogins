@@ -11,7 +11,7 @@ module.exports = (app, passport) => {
 
   var localLoginRouteRedirects = {
     successRedirect : '/profile',
-    failureRedirect : '/login',
+    failureRedirect : '/auth/login',
   };
   app.post('/auth/login', passport.authenticate('local-login', localLoginRouteRedirects) );
 
@@ -21,7 +21,7 @@ module.exports = (app, passport) => {
 
   var localSignupRouteRedirects = {
     successRedirect : '/profile',
-    failureRedirect : '/signup'
+    failureRedirect : '/auth/signup'
   }
   app.post('/auth/signup', passport.authenticate('local-signup', localSignupRouteRedirects) );
 

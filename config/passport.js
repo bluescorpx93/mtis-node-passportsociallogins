@@ -19,8 +19,6 @@ module.exports = (passport) =>{
 
 
   passport.deserializeUser( (id, done) => {
-    // var connection = getConnection();
-    // var userRepository = connection.getRepository("User");
     userRepository.findOne({ id: id })
     .then( user => {
       if (user){
@@ -43,7 +41,6 @@ module.exports = (passport) =>{
   };
   passport.use('local-signup', new LocalStrategy(localSignupOptions , (req, email, password, done) => {
     process.nextTick( () => {
-
       userRepository.findOne({ local_email: email })
       .then( user => {
         if (user){
@@ -84,8 +81,6 @@ module.exports = (passport) =>{
     passReqToCallback: true
   };
   passport.use('local-login', new LocalStrategy(localLoginOptions, (req, email, password, done) => {
-    // var connection = getConnection();
-    // var userRepository = connection.getRepository("User");
     userRepository.findOne({ local_email: email })
     .then( user => {
       if (user){
@@ -114,7 +109,7 @@ module.exports = (passport) =>{
     clientID : `${process.env.FACEBOOK_APPID}`,
     clientSecret : `${process.env.FACEBOOK_APPSECRET}`,
     callbackURL : 'https://localhost:4000/auth/facebook/callback',
-    profileFields : ['id', 'name', 'picture']
+    profileFields : ['id', 'name', 'picture', 'emails']
   }
   passport.use(new FacebookStrategy(facebookLoginOptions, (token, refreshToken, profile, done)  => {
     process.nextTick( () => {
@@ -123,12 +118,17 @@ module.exports = (passport) =>{
         if (user){
           return done(null, user)
         } else {
+          console.log(profile);
           var newFBUser = {
             facebook_id : profile._json.id,
-            facebook_display_name : profile._json.first_name + profile._json.middle_name + profile._json.last_name,
             facebook_token : token,
+            facebook_email : profile._json.email,
             facebook_propic_url : profile._json.picture.data.url
           }
+          newFBUser.facebook_display_name = profile._json.first_name ? profile._json.first_name + " ": ""
+          newFBUser.facebook_display_name += profile._json.middle_name ? profile._json.middle_name + " ": ""
+          newFBUser.facebook_display_name += profile._json.last_name ? profile._json.last_name : ""
+
           userRepository.save(newFBUser).then( (savedUser) => {
             console.log("Facebook User Created in DB");
             return done(null, newFBUser);

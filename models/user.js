@@ -30,6 +30,10 @@ module.exports = {
       type: "varchar",
       nullable: true,
     },
+    facebook_email : {
+      type: "varchar",
+      nullable: true,
+    },
     facebook_token : {
       type: "varchar",
       nullable: true,

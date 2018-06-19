@@ -14,7 +14,7 @@ var typeorm = require('typeorm');
 var dbConfigOptions = require('./config/dbConfigOptions');
 
 typeorm.createConnection(dbConfigOptions).then( async connection => {
-
+  console.log("Postgresql Database Connection Successfull");
   apiApp.use(morgan('dev'));
   apiApp.use(cookieParser());
   apiApp.use(bodyParser.json());
@@ -41,12 +41,12 @@ typeorm.createConnection(dbConfigOptions).then( async connection => {
     passphrase: "passphrase"
   }
 
-  http.createServer(apiApp).listen(process.env.BACKEND_PORT-500, () => {
-    console.log("Backend Running on Port :", process.env.BACKEND_PORT-500);
+  http.createServer(apiApp).listen(process.env.HTTP_PORT, () => {
+    console.log("HTTP Server Running on Port :", process.env.HTTP_PORT);
   });
 
-  https.createServer(httpsOptions, apiApp).listen(process.env.BACKEND_PORT, () => {
-    console.log("Backend Running on Port :", process.env.BACKEND_PORT);
+  https.createServer(httpsOptions, apiApp).listen(process.env.HTTPS_PORT, () => {
+    console.log("HTTPS Server Running on Port :", process.env.HTTPS_PORT);
   });
 
 }).catch(err => {

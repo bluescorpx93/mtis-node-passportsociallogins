@@ -1,33 +1,38 @@
 <html>
 
 <head>
-  <title>Profile <%=user.local_fullname %></title>
-  <link rel='stylesheet' href='asset/bootstrap4.min.css' />
-  <link rel='stylesheet' href='asset/styles.css' />
+  <title> <%=user.local_fullname || user.facebook_display_name || user.google_display_name %></title>
+  <link rel='stylesheet' href='/asset/bootstrap4.min.css' />
+  <link rel='stylesheet' href='/asset/styles.css' />
 </head>
 
 <body>
   <div class='jumbotron'>
-    <div class='col-md-8 offset-md-2'>
-      <a href='/auth/logout' class='btn btn-default'> Local Logout</a>
-      <div class='col-md-12'>
-        <h1> Local Profile </h1>
-        <p> Name: <%= user.local_fullname %></p>
-        <p> Contact at <%= user.local_email %> </p>
-        <p> Cell : <%= user.local_phone_no %> </p>
+    <div class='col-md-10 offset-md-1'>
+      <div class='row'>
+        <div class='col-md-4'>
+          <h4> Local Profile </h4>
+          <p> Name: <%= user.local_fullname %></p>
+          <p> Contact at <%= user.local_email %> </p>
+          <p> Cell : <%= user.local_phone_no %> </p>
+        </div>
+        <div class='col-md-4'>
+          <h4> Facebok Profile </h4>
+          <p> Facebook ID: <%= user.facebook_id %> </p>
+          <p> Facebook Name: <%= user.facebook_display_name %> </p>
+          <p> Facebook Email: <%= user.facebook_email %> </p>
+          <p> Facebook Image: <img src= "<%=user.facebook_propic_url %>" > </p>
+        </div>
+         <div class='col-md-4'>
+          <h4> Google Profile </h4>
+          <p> Google ID: <%= user.google_id %> </p>
+          <p> Google Name: <%= user.google_display_name %> </p>
+          <p> Google Email : <%= user.google_email %> </p>
+          <p> Google Image : <img src="<%= user.google_propic_url %>" > </p>
+        </div>
       </div>
-      <div class='col-md-12'>
-        <h1> Facebok Profile </h1>
-        <p> Facebook ID: <%= user.facebook_id %> </p>
-        <p> Facebook Name: <%= user.facebook_display_name %> </p>
-        <p> Facebook Image: <img src= "<%=user.facebook_propic_url %>" > </p>
-      </div>
-       <div class='col-md-12'>
-        <h1> Google Profile </h1>
-        <p> Google ID: <%= user.google_id %> </p>
-        <p> Google Name: <%= user.google_display_name %> </p>
-        <p> Google Email : <%= user.google_email %> </p>
-        <p> Google Image : <img src="<%= user.google_propic_url %>" > </p>
+      <div class='row'>
+        <a href='/auth/logout' class='btn btn-secondary '> Logout</a>
       </div>
 
     </div>
