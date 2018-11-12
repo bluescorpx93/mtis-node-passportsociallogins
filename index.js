@@ -4,7 +4,7 @@ var http = require('http');
 var https = require('https');
 
 var apiApp = express();
-var environmentVariables = require('dotenv').config();
+var appKeys = require("./keys/appKeys");
 var passport = require('passport');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -22,7 +22,7 @@ typeorm.createConnection(dbConfigOptions).then( async connection => {
   apiApp.use(express.static('public'));
   apiApp.set('view engine', 'ejs');
   apiApp.use(session({
-    secret: `${process.env.SESSION_SECRET}`,
+    secret: appKeys.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
   }));
@@ -41,12 +41,12 @@ typeorm.createConnection(dbConfigOptions).then( async connection => {
     passphrase: "passphrase"
   }
 
-  http.createServer(apiApp).listen(process.env.HTTP_PORT, () => {
-    console.log("HTTP Server Running on Port :", process.env.HTTP_PORT);
+  http.createServer(apiApp).listen(appKeys.HTTP_PORT, () => {
+    console.log("HTTP Server Running on Port :", appKeys.HTTP_PORT);
   });
 
-  https.createServer(httpsOptions, apiApp).listen(process.env.HTTPS_PORT, () => {
-    console.log("HTTPS Server Running on Port :", process.env.HTTPS_PORT);
+  https.createServer(httpsOptions, apiApp).listen(appKeys.HTTPS_PORT, () => {
+    console.log("HTTPS Server Running on Port :", appKeys.HTTPS_PORT);
   });
 
 }).catch(err => {

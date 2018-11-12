@@ -3,6 +3,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var bcrypt = require('bcrypt');
+var appKeys = require("../keys/appKeys");
+
 
 // Initialize User Table
 var connection = getConnection();
@@ -106,9 +108,9 @@ module.exports = (passport) =>{
   // ----------------------------------------------------------------------------
   // Facebook Signin
   var facebookLoginOptions = {
-    clientID : `${process.env.FACEBOOK_APPID}`,
-    clientSecret : `${process.env.FACEBOOK_APPSECRET}`,
-    callbackURL : 'https://localhost:4000/auth/facebook/callback',
+    clientID : appKeys.FACEBOOK_APPID,
+    clientSecret : appKeys.FACEBOOK_APPSECRET,
+    callbackURL : appKeys.FACEBOOK_CALLBACK_URL,
     profileFields : ['id', 'name', 'picture', 'emails']
   }
   passport.use(new FacebookStrategy(facebookLoginOptions, (token, refreshToken, profile, done)  => {
@@ -148,9 +150,9 @@ module.exports = (passport) =>{
   // --------------------------------------------------------------------------------
   // GOOGLE SIGN IN
   var googleLoginOptions = {
-    clientID : `${process.env.GOOGLE_CLIENTID}`,
-    clientSecret : `${process.env.GOOGLE_CLIENTSECRET}`,
-    callbackURL : 'https://localhost:4000/auth/google/callback',
+    clientID : appKeys.GOOGLE_CLIENTID,
+    clientSecret : appKeys.GOOGLE_CLIENTSECRET,
+    callbackURL : appKeys.GOOGLE_CALLBACK_URL,
   }
   passport.use(new GoogleStrategy(googleLoginOptions, (token, refreshToken, profile, done)  => {
     process.nextTick( () => {
