@@ -4,13 +4,13 @@ To Test This
 
 - Create appKeys.ks
 ```sh
-$ cd mtis-node-passport-sociallogins
+$ cd mtis-node-passport-social-logins
 $ touch keys/appKeys.js
 ```
  
 - Update appKeys
 ```sh
-$ cd mtis-node-passport-sociallogins
+$ cd mtis-node-passport-social-logins
 
 #Update keys/appKeys.js
 
@@ -37,7 +37,7 @@ module.exports = AppKeys
 
 - Install Package Dependencies
 ```sh
-$ cd mtis-node-passport-sociallogins
+$ cd mtis-node-passport-social-logins
 $ yarn install
 
 #Or, with npm
@@ -46,6 +46,6 @@ $ npm install
 
 - Run App
 ```sh
-$ cd mtis-node-passport-sociallogins
+$ cd mtis-node-passport-social-logins
 $ yarn start-app
 ```
