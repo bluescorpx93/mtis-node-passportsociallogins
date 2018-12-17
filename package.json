@@ -6,10 +6,10 @@
     "start-app" : "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "private": true,
+  "author": "Toufiq (https://twitter.com/burningraven06)",
+  "description" : "RxJs Example with Typescript + Webpack",
+  "keywords" : ["nodejs","passport","passport-strategy","passport-facebook","passport-google","express","postgrest","typeorm"],
   "dependencies": {
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
